@@ -14,4 +14,13 @@ CHIP HalfAdder {
 
     PARTS:
     // Put you code here:
+
+    // A half Adder adds two bits togather
+
+    // If a and b are both sums, we know that there will be a carry 
+    And(a = a, b = b, out = carry);
+
+    // The only case where the sum is true is when there is no overflow 
+    Xor(a = a, b = b, out = sum);
 }
+

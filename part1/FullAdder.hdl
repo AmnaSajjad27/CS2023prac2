@@ -14,4 +14,11 @@ CHIP FullAdder {
 
     PARTS:
     // Put you code here:
+
+    // A full Adder is just two half adders and a or gate
+    
+    HalfAdder(a = a, b = b, sum = b2, carry = cout1);
+    HalfAdder(a = c, b = b2, sum = sum, carry = cout2);
+    Or(a = cout1, b = cout2, out = carry);
+
 }
