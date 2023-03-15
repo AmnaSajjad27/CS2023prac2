@@ -39,7 +39,7 @@ CHIP ALU {
     OUT 
         out[16], // 16-bit output
         zr, // 1 if (out == 0), 0 otherwise
-        ng; // 1 if (out < 0),  0 otherwise
+        ng; // 1 if (out < 0), 0 otherwise
 
     PARTS:
    // Put you code here:
@@ -50,7 +50,7 @@ CHIP ALU {
    Mux16(a = x, b = fasle, sel = zx, out = x1);
    Mux16(a = y, b = false, sel = zy, out = y1);
 
-   // Negate the x and y input 
+   // Negate the not x and noty input 
 
    Not16(in = x1, out = notx1);
    Mux16(a = x1, b = notx1, sel = nx, out = x2);
@@ -65,7 +65,7 @@ CHIP ALU {
    Mux16(a = zandy, b = xplusy, sel = f, out = xy);
 
    // Negating the output 
-   if out is less than 0, MSB will be 1
+   // if out is less than 0, MSB will be 1
    Not16(in = xy, out = notxy);
    Mux16(a = xy, b = notxy, sel = no, out[15] = ng, out[0..7] = part1, out[8..15] = part2, out = out);
 
