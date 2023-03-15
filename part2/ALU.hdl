@@ -43,4 +43,39 @@ CHIP ALU {
 
     PARTS:
    // Put you code here:
+
+   // starting from input, working towards the output 
+
+   // selecting which x or y to set to zeros using a Mux16 from prac1
+   Mux16(a = x, b = fasle, sel = zx, out = x1);
+   Mux16(a = y, b = false, sel = zy, out = y1);
+
+   // Negate the x and y input 
+
+   Not16(in = x1, out = notx1);
+   Mux16(a = x1, b = notx1, sel = nx, out = x2);
+   
+   Not16(in = y1, out = noty1);
+   Mux16(a = y1, b = noty1, sel = ny, out = y2);
+
+   // Bitewise And, Combining x and y
+
+   And16(a = x2, b = y2, out = xandy);
+   Add16(a = x2, b = y2, out = xplusy);
+   Mux16(a = zandy, b = xplusy, sel = f, out = xy);
+
+   // Negating the output 
+   if out is less than 0, MSB will be 1
+   Not16(in = xy, out = notxy);
+   Mux16(a = xy, b = notxy, sel = no, out[15] = ng, out[0..7] = part1, out[8..15] = part2, out = out);
+
+   // if out = 0, then or8way is false for both parts 
+   Not(in = nonzero, out = zr);
+
+   // Check if any digits are non zero
+   Or(a = or1, b = or2, out = nonzero);
+
+   // Now check each 8-bit chunk for nonzero
+   Or8way(in = part1, out = or1);
+   Or8way(in = part2, out = or2);
 }
